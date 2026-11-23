@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Myshirt — West Coast cotton, printed in Sooke</title>
+<meta name="description" content="Original West Coast t-shirt designs from Sooke, BC. Ships across Canada, the USA and Mexico.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="/designs/waves-teal.svg"><link rel="stylesheet" href="/css/site.css">
+</head><body>
+<div id="announce" class="announce" hidden></div>
+<header class="site-header" id="top"><div class="wrap nav">
+  <a href="/" id="brand" class="brand"></a>
+  <nav class="links"><a href="#configurator">Shop</a><a href="#gallery">Gallery</a><a href="#collections">Collections</a><a href="#story">Story</a></nav>
+  <button class="bag-btn" id="bagBtn" aria-label="Open bag">Bag <span id="bagCount">0</span></button>
+</div></header>
+<main id="sections"></main>
+<div id="footer"></div>
+<aside class="drawer" id="bag" aria-hidden="true"><div class="drawer-inner">
+  <div class="drawer-head"><h3>Your bag</h3><button class="icon-btn" id="bagClose" aria-label="Close">×</button></div>
+  <div id="bagItems" class="bag-items"></div>
+  <div class="ship-form">
+    <h4>Ship to</h4>
+    <label>Country<select id="shipCountry"></select></label>
+    <label><span id="regionLabel">Province / Territory</span><select id="shipRegion"></select></label>
+    <label>Email (for receipt)<input id="shipEmail" type="email" placeholder="you@example.com"></label>
+  </div>
+  <div class="totals" id="totals"></div>
+  <button class="btn btn-primary block" id="checkoutBtn">Checkout securely</button>
+  <p class="fine center" id="payNote"></p>
+</div></aside>
+<div class="scrim" id="scrim"></div>
+<div class="toast" id="toast"></div>
+<script src="/js/common.js"></script><script src="/js/shirt.js"></script><script src="/js/site.js"></script>
+</body></html>

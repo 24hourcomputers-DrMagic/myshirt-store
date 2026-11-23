@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Order confirmed — Myshirt</title><link rel="stylesheet" href="/css/site.css"></head><body>
+<header class="site-header"><div class="wrap nav"><a href="/" id="brand" class="brand"></a></div></header>
+<section class="page-hero" id="ph"><div class="hero-mist"></div><div class="wrap"><p class="eyebrow">Thank you</p><h1 id="h">Order received</h1></div></section>
+<main class="wrap prose" id="body"><p class="muted">Loading your order…</p></main><div id="footer"></div>
+<script src="/js/common.js"></script><script>
+(async()=>{const {esc,fmt,$}=MS;const cfg=await MS.loadConfig();MS.chrome(cfg);$('#ph').insertAdjacentHTML('afterbegin',MS.scenery());$('#footer').innerHTML=MS.footerHtml(cfg);
+const p=new URLSearchParams(location.search);const r=await fetch('/api/orders/'+encodeURIComponent(p.get('order')||''));
+if(!r.ok){$('#body').innerHTML='<p>We couldn’t find that order.</p><a class="btn btn-primary" href="/">Back to shop</a>';return}
+const o=await r.json();localStorage.removeItem('ms_bag');
+$('#h').textContent=o.status==='paid'?'Payment confirmed':o.mode==='demo'?'Demo order placed':'Order received';
+$('#body').innerHTML=`${o.mode==='demo'?'<p class="nudge">Demo mode: Stripe test key not configured, so no card was charged.</p>':''}
+<p class="lede">Order <strong>${esc(o.id)}</strong> · status: <strong>${esc(o.status)}</strong>. We’ll print it in Sooke and ship it to ${esc(o.region)}, ${esc(o.country)}.</p>
+<div class="totals">${o.items.map(i=>`<div><span>${i.qty} × ${esc(i.design)} — ${esc(i.style)}, ${esc(i.color)}, ${esc(i.size)}</span><span>${fmt(i.unit*i.qty,o.currency)}</span></div>`).join('')}
+<div><span>Shipping</span><span>${o.shipping?fmt(o.shipping,o.currency):'<em class="free">Free</em>'}</span></div><div class="grand"><span>Total</span><span>${fmt(o.total,o.currency)}</span></div></div>
+<p><a class="btn btn-primary" href="/">Keep shopping</a></p>`})();</script></body></html>

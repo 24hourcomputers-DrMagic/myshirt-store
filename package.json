@@ -1,0 +1,25 @@
+{
+  "name": "myshirt-store",
+  "version": "0.1.0",
+  "description": "Myshirt — West Coast t-shirt store (Express + JSON store + Stripe Checkout test mode)",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "gen:designs": "node scripts/gen-designs.js"
+  },
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.3.0",
+    "multer": "^2.5.0",
+    "stripe": "^23.2.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "private": true
+}

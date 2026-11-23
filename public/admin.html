@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Owner Admin — Myshirt</title>
+<meta name="robots" content="noindex"><link rel="stylesheet" href="/css/site.css"><link rel="stylesheet" href="/css/admin.css"></head><body class="admin">
+<div id="login" class="login" hidden><form id="loginForm" class="login-card"><div class="brand-word lg">Myshirt</div><p class="muted">Owner admin</p>
+  <input type="password" id="pw" placeholder="Admin password" autocomplete="current-password" required><button class="btn btn-primary block">Sign in</button><p id="loginErr" class="err"></p></form></div>
+<div id="app" hidden>
+  <aside class="side"><div class="brand-word">Myshirt</div><p class="fine">Owner admin</p>
+    <nav id="tabs">
+      <button data-tab="theme" class="on">🎨 Theme Settings</button><button data-tab="sections">🧱 Homepage Sections</button><button data-tab="gallery">🖼 Gallery Manager</button>
+      <button data-tab="products">👕 Product Editor</button><button data-tab="shipping">📦 Shipping Rates</button><button data-tab="content">✍️ Site Content</button><button data-tab="orders">🧾 Orders &amp; List</button>
+    </nav>
+    <div class="side-foot"><a href="/" target="_blank">View site ↗</a><button id="logout" class="link">Sign out</button></div></aside>
+  <main class="main"><div id="warn" class="warn" hidden></div><div id="panel"></div></main>
+</div>
+<div class="toast" id="toast"></div>
+<script src="/js/common.js"></script><script src="/js/shirt.js"></script><script src="/js/admin.js"></script></body></html>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400"><circle cx="200" cy="190" r="150" fill="#1fb5a8" opacity=".18"/><g transform="translate(70 120)">
+  <path d="M10 120 C40 40 160 20 240 70 C262 84 270 100 262 112 C220 128 130 140 60 130 C40 128 22 126 10 120 Z" fill="#0a0a0b"/>
+  <path d="M120 52 C126 10 138 -6 150 -16 C150 20 148 40 156 58 Z" fill="#0a0a0b"/>
+  <path d="M160 92 C190 86 220 92 240 104 C210 116 180 116 160 108 Z" fill="#d7dbe2"/>
+  <ellipse cx="210" cy="78" rx="14" ry="6" fill="#d7dbe2"/>
+  <path d="M10 120 C-6 100 -14 92 -20 70 C-2 84 6 92 18 104 C10 82 12 70 14 56 C22 80 26 100 24 118 Z" fill="#0a0a0b"/>
+  <path d="M150 118 C140 140 120 150 100 152 C112 140 120 130 124 120 Z" fill="#0a0a0b"/></g><path d="M0 285 q 17.5 -10 35 0 t 35 0 q 17.5 -10 35 0 t 35 0 q 17.5 -10 35 0 t 35 0 q 17.5 -10 35 0 t 35 0 q 17.5 -10 35 0 t 35 0 q 17.5 -10 35 0 t 35 0 V400 H0 Z" fill="#1fb5a8" opacity=".5" transform="translate(0 0) scale(1 .4) translate(0 430)"/><text x="200" y="360" text-anchor="middle" font-family="'Playfair Display', Georgia, 'Times New Roman', serif" font-size="34" fill="#1fb5a8" font-weight="700" letter-spacing="3">SALISH SEA</text></svg>

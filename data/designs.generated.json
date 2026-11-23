@@ -1,0 +1,483 @@
+[
+  {
+    "id": "waves-teal",
+    "title": "Pacific Swell",
+    "category": "Ocean",
+    "tags": [
+      "waves",
+      "ocean",
+      "surf"
+    ],
+    "palette": "teal",
+    "file": "/designs/waves-teal.svg"
+  },
+  {
+    "id": "waves-dusk",
+    "title": "Golden Hour Swell",
+    "category": "Ocean",
+    "tags": [
+      "waves",
+      "ocean",
+      "surf"
+    ],
+    "palette": "dusk",
+    "file": "/designs/waves-dusk.svg"
+  },
+  {
+    "id": "waves-mist",
+    "title": "Misty Swell",
+    "category": "Ocean",
+    "tags": [
+      "waves",
+      "ocean",
+      "surf"
+    ],
+    "palette": "mist",
+    "file": "/designs/waves-mist.svg"
+  },
+  {
+    "id": "mountains-teal",
+    "title": "Coast Range",
+    "category": "Mountains",
+    "tags": [
+      "mountains",
+      "alpine"
+    ],
+    "palette": "teal",
+    "file": "/designs/mountains-teal.svg"
+  },
+  {
+    "id": "mountains-forest",
+    "title": "Cedar Peaks",
+    "category": "Mountains",
+    "tags": [
+      "mountains",
+      "alpine"
+    ],
+    "palette": "forest",
+    "file": "/designs/mountains-forest.svg"
+  },
+  {
+    "id": "mountains-mist",
+    "title": "Misty Peaks",
+    "category": "Mountains",
+    "tags": [
+      "mountains",
+      "alpine"
+    ],
+    "palette": "mist",
+    "file": "/designs/mountains-mist.svg"
+  },
+  {
+    "id": "mountains-dusk",
+    "title": "Alpenglow",
+    "category": "Mountains",
+    "tags": [
+      "mountains",
+      "alpine"
+    ],
+    "palette": "dusk",
+    "file": "/designs/mountains-dusk.svg"
+  },
+  {
+    "id": "orca-teal",
+    "title": "Orca Teal",
+    "category": "Wildlife",
+    "tags": [
+      "orca",
+      "whale",
+      "ocean"
+    ],
+    "palette": "teal",
+    "file": "/designs/orca-teal.svg"
+  },
+  {
+    "id": "orca-silver",
+    "title": "Orca Silver",
+    "category": "Wildlife",
+    "tags": [
+      "orca",
+      "whale",
+      "ocean"
+    ],
+    "palette": "silver",
+    "file": "/designs/orca-silver.svg"
+  },
+  {
+    "id": "orca-mist",
+    "title": "Orca Mist",
+    "category": "Wildlife",
+    "tags": [
+      "orca",
+      "whale",
+      "ocean"
+    ],
+    "palette": "mist",
+    "file": "/designs/orca-mist.svg"
+  },
+  {
+    "id": "cedars-forest",
+    "title": "Cedar Grove forest",
+    "category": "Forest",
+    "tags": [
+      "cedar",
+      "trees",
+      "forest"
+    ],
+    "palette": "forest",
+    "file": "/designs/cedars-forest.svg"
+  },
+  {
+    "id": "cedars-mist",
+    "title": "Cedar Grove mist",
+    "category": "Forest",
+    "tags": [
+      "cedar",
+      "trees",
+      "forest"
+    ],
+    "palette": "mist",
+    "file": "/designs/cedars-mist.svg"
+  },
+  {
+    "id": "cedars-teal",
+    "title": "Cedar Grove teal",
+    "category": "Forest",
+    "tags": [
+      "cedar",
+      "trees",
+      "forest"
+    ],
+    "palette": "teal",
+    "file": "/designs/cedars-teal.svg"
+  },
+  {
+    "id": "lighthouse-dusk",
+    "title": "Sheringham Light dusk",
+    "category": "Coast",
+    "tags": [
+      "lighthouse",
+      "coast",
+      "night"
+    ],
+    "palette": "dusk",
+    "file": "/designs/lighthouse-dusk.svg"
+  },
+  {
+    "id": "lighthouse-teal",
+    "title": "Sheringham Light teal",
+    "category": "Coast",
+    "tags": [
+      "lighthouse",
+      "coast",
+      "night"
+    ],
+    "palette": "teal",
+    "file": "/designs/lighthouse-teal.svg"
+  },
+  {
+    "id": "lighthouse-silver",
+    "title": "Sheringham Light silver",
+    "category": "Coast",
+    "tags": [
+      "lighthouse",
+      "coast",
+      "night"
+    ],
+    "palette": "silver",
+    "file": "/designs/lighthouse-silver.svg"
+  },
+  {
+    "id": "sunset-dusk",
+    "title": "Juan de Fuca Sunset dusk",
+    "category": "Sunset",
+    "tags": [
+      "sunset",
+      "ocean",
+      "retro"
+    ],
+    "palette": "dusk",
+    "file": "/designs/sunset-dusk.svg"
+  },
+  {
+    "id": "sunset-teal",
+    "title": "Juan de Fuca Sunset teal",
+    "category": "Sunset",
+    "tags": [
+      "sunset",
+      "ocean",
+      "retro"
+    ],
+    "palette": "teal",
+    "file": "/designs/sunset-teal.svg"
+  },
+  {
+    "id": "sunset-forest",
+    "title": "Juan de Fuca Sunset forest",
+    "category": "Sunset",
+    "tags": [
+      "sunset",
+      "ocean",
+      "retro"
+    ],
+    "palette": "forest",
+    "file": "/designs/sunset-forest.svg"
+  },
+  {
+    "id": "tidepool-teal",
+    "title": "Tide Pool teal",
+    "category": "Tide Pools",
+    "tags": [
+      "starfish",
+      "anemone",
+      "tide pool"
+    ],
+    "palette": "teal",
+    "file": "/designs/tidepool-teal.svg"
+  },
+  {
+    "id": "tidepool-dusk",
+    "title": "Tide Pool dusk",
+    "category": "Tide Pools",
+    "tags": [
+      "starfish",
+      "anemone",
+      "tide pool"
+    ],
+    "palette": "dusk",
+    "file": "/designs/tidepool-dusk.svg"
+  },
+  {
+    "id": "salmon-teal",
+    "title": "Run Home teal",
+    "category": "Wildlife",
+    "tags": [
+      "salmon",
+      "river"
+    ],
+    "palette": "teal",
+    "file": "/designs/salmon-teal.svg"
+  },
+  {
+    "id": "salmon-forest",
+    "title": "Run Home forest",
+    "category": "Wildlife",
+    "tags": [
+      "salmon",
+      "river"
+    ],
+    "palette": "forest",
+    "file": "/designs/salmon-forest.svg"
+  },
+  {
+    "id": "kayak-mist",
+    "title": "Paddle Out mist",
+    "category": "Adventure",
+    "tags": [
+      "kayak",
+      "paddle"
+    ],
+    "palette": "mist",
+    "file": "/designs/kayak-mist.svg"
+  },
+  {
+    "id": "kayak-teal",
+    "title": "Paddle Out teal",
+    "category": "Adventure",
+    "tags": [
+      "kayak",
+      "paddle"
+    ],
+    "palette": "teal",
+    "file": "/designs/kayak-teal.svg"
+  },
+  {
+    "id": "moon-silver",
+    "title": "Moon Tide silver",
+    "category": "Night",
+    "tags": [
+      "moon",
+      "tide",
+      "night"
+    ],
+    "palette": "silver",
+    "file": "/designs/moon-silver.svg"
+  },
+  {
+    "id": "moon-mist",
+    "title": "Moon Tide mist",
+    "category": "Night",
+    "tags": [
+      "moon",
+      "tide",
+      "night"
+    ],
+    "palette": "mist",
+    "file": "/designs/moon-mist.svg"
+  },
+  {
+    "id": "topo-teal",
+    "title": "Topo Sooke teal",
+    "category": "Maps",
+    "tags": [
+      "topographic",
+      "map"
+    ],
+    "palette": "teal",
+    "file": "/designs/topo-teal.svg"
+  },
+  {
+    "id": "topo-forest",
+    "title": "Topo Sooke forest",
+    "category": "Maps",
+    "tags": [
+      "topographic",
+      "map"
+    ],
+    "palette": "forest",
+    "file": "/designs/topo-forest.svg"
+  },
+  {
+    "id": "compass-teal",
+    "title": "True North",
+    "category": "Maps",
+    "tags": [
+      "compass",
+      "nautical"
+    ],
+    "palette": "teal",
+    "file": "/designs/compass-teal.svg"
+  },
+  {
+    "id": "ferry-mist",
+    "title": "Ferry Days",
+    "category": "Coast",
+    "tags": [
+      "ferry",
+      "islands"
+    ],
+    "palette": "mist",
+    "file": "/designs/ferry-mist.svg"
+  },
+  {
+    "id": "type-sooke",
+    "title": "Sooke BC Classic",
+    "category": "Typographic",
+    "tags": [
+      "type",
+      "wordmark"
+    ],
+    "palette": "silver",
+    "file": "/designs/type-sooke.svg"
+  },
+  {
+    "id": "type-saltwater",
+    "title": "Salt Water Soul",
+    "category": "Typographic",
+    "tags": [
+      "type",
+      "wordmark"
+    ],
+    "palette": "teal",
+    "file": "/designs/type-saltwater.svg"
+  },
+  {
+    "id": "type-mist",
+    "title": "Mist & Mountain",
+    "category": "Typographic",
+    "tags": [
+      "type",
+      "wordmark"
+    ],
+    "palette": "mist",
+    "file": "/designs/type-mist.svg"
+  },
+  {
+    "id": "type-pacific-time",
+    "title": "Pacific Time",
+    "category": "Typographic",
+    "tags": [
+      "type",
+      "wordmark"
+    ],
+    "palette": "dusk",
+    "file": "/designs/type-pacific-time.svg"
+  },
+  {
+    "id": "type-48n",
+    "title": "48° North",
+    "category": "Typographic",
+    "tags": [
+      "type",
+      "wordmark"
+    ],
+    "palette": "teal",
+    "file": "/designs/type-48n.svg"
+  },
+  {
+    "id": "type-stay-misty",
+    "title": "Stay Misty",
+    "category": "Typographic",
+    "tags": [
+      "type",
+      "wordmark"
+    ],
+    "palette": "mist",
+    "file": "/designs/type-stay-misty.svg"
+  },
+  {
+    "id": "type-wild-coast",
+    "title": "Wild Coast Est.",
+    "category": "Typographic",
+    "tags": [
+      "type",
+      "wordmark"
+    ],
+    "palette": "forest",
+    "file": "/designs/type-wild-coast.svg"
+  },
+  {
+    "id": "type-tide-schedule",
+    "title": "Ruled by Tides",
+    "category": "Typographic",
+    "tags": [
+      "type",
+      "wordmark"
+    ],
+    "palette": "teal",
+    "file": "/designs/type-tide-schedule.svg"
+  },
+  {
+    "id": "type-cedar-salt",
+    "title": "Cedar & Salt Script",
+    "category": "Typographic",
+    "tags": [
+      "type",
+      "wordmark"
+    ],
+    "palette": "forest",
+    "file": "/designs/type-cedar-salt.svg"
+  },
+  {
+    "id": "type-westcoast",
+    "title": "West Coast Wordmark",
+    "category": "Typographic",
+    "tags": [
+      "type",
+      "wordmark"
+    ],
+    "palette": "silver",
+    "file": "/designs/type-westcoast.svg"
+  },
+  {
+    "id": "type-high-tide",
+    "title": "High Tide Good Vibes",
+    "category": "Typographic",
+    "tags": [
+      "type",
+      "wordmark"
+    ],
+    "palette": "dusk",
+    "file": "/designs/type-high-tide.svg"
+  }
+]

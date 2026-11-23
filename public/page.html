@@ -1,0 +1,10 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Myshirt</title><link rel="stylesheet" href="/css/site.css"></head><body>
+<div id="announce" class="announce" hidden></div>
+<header class="site-header"><div class="wrap nav"><a href="/" id="brand" class="brand"></a><nav class="links"><a href="/#configurator">Shop</a><a href="/page/about">About</a><a href="/page/faq">FAQ</a><a href="/page/policy">Shipping &amp; Returns</a></nav></div></header>
+<section class="page-hero" id="ph"><div class="hero-mist"></div><div class="wrap"><h1 id="h"></h1></div></section>
+<main class="wrap prose" id="body"></main><div id="footer"></div>
+<script src="/js/common.js"></script><script>
+(async()=>{const {esc,$}=MS;const cfg=await MS.loadConfig();MS.chrome(cfg);$('#ph').insertAdjacentHTML('afterbegin',MS.scenery());$('#footer').innerHTML=MS.footerHtml(cfg);
+const slug=location.pathname.split('/').pop();const pg=cfg.content.pages[slug];if(!pg){$('#h').textContent='Page not found';return}
+document.title=pg.title+' — '+cfg.content.siteName;$('#h').textContent=pg.title;
+$('#body').innerHTML=pg.body.split(/\n\n+/).map(b=>{const [first,...rest]=b.split('\n');return rest.length&&first.trim().endsWith('?')?`<h3>${esc(first)}</h3><p>${esc(rest.join(' '))}</p>`:`<p>${esc(b).replace(/\n/g,'<br>')}</p>`}).join('')})();</script></body></html>
