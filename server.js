@@ -10,7 +10,7 @@ const { quote } = require('./lib/shipping');
 const D = require('./lib/defaults');
 
 const PORT = process.env.PORT || 4317;
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'sooke-tides';
+const ADMIN_PASSWORD = (process.env.ADMIN_PASSWORD || '').trim() || 'sooke-tides';
 const SK = process.env.STRIPE_SECRET_KEY || '';
 const PK = process.env.STRIPE_PUBLISHABLE_KEY || '';
 const stripeMode = SK.startsWith('sk_test_') || SK.startsWith('rk_test_') ? 'test' : SK ? 'refused-live' : 'off';
@@ -151,10 +151,10 @@ app.post('/api/admin/login', (req, res) => {
   if (!safeEq(req.body?.password || '', ADMIN_PASSWORD)) return setTimeout(() => res.status(401).json({ error: 'Wrong password' }), 400);
   const t = crypto.randomBytes(24).toString('hex'); sessions.set(t, Date.now() + 12 * 3600e3);
   res.setHeader('Set-Cookie', `ms_admin=${t}; HttpOnly; Path=/; SameSite=Lax; Max-Age=43200${req.secure || req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : ''}`);
-  res.json({ ok: true, defaultPassword: !process.env.ADMIN_PASSWORD });
+  res.json({ ok: true, defaultPassword: ADMIN_PASSWORD === 'sooke-tides' });
 });
 app.post('/api/admin/logout', (req, res) => { sessions.delete(cookieToken(req)); res.setHeader('Set-Cookie', 'ms_admin=; Path=/; Max-Age=0'); res.json({ ok: true }); });
-app.get('/api/admin/me', requireAdmin, (req, res) => res.json({ ok: true, defaultPassword: !process.env.ADMIN_PASSWORD, stripe: stripeMode }));
+app.get('/api/admin/me', requireAdmin, (req, res) => res.json({ ok: true, defaultPassword: ADMIN_PASSWORD === 'sooke-tides', stripe: stripeMode }));
 const A = express.Router(); A.use(requireAdmin); app.use('/api/admin', A);
 
 const isHex = v => /^#[0-9a-fA-F]{6}$/.test(v);
