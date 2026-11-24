@@ -92,6 +92,18 @@
       "Heather Navy": {
         "hex": "#3b4560",
         "ink": "light"
+      },
+      "Black": {
+        "hex": "#111214",
+        "ink": "light"
+      },
+      "Forest": {
+        "hex": "#25402f",
+        "ink": "light"
+      },
+      "Dark Grey Heather": {
+        "hex": "#3d3f44",
+        "ink": "light"
       }
     },
     "longsleeve": {
@@ -129,6 +141,18 @@
       },
       "Navy": {
         "hex": "#25304a",
+        "ink": "light"
+      },
+      "Black": {
+        "hex": "#111214",
+        "ink": "light"
+      },
+      "Forest Green": {
+        "hex": "#25402f",
+        "ink": "light"
+      },
+      "Charcoal": {
+        "hex": "#43464c",
         "ink": "light"
       }
     },
@@ -176,6 +200,18 @@
       "Navy": {
         "hex": "#25304a",
         "ink": "light"
+      },
+      "Black": {
+        "hex": "#111214",
+        "ink": "light"
+      },
+      "Forest Green": {
+        "hex": "#25402f",
+        "ink": "light"
+      },
+      "Charcoal": {
+        "hex": "#43464c",
+        "ink": "light"
       }
     }
   },
@@ -194,10 +230,11 @@
         "tee|Turquoise": "/featured/my-shirt-turquoise-photo.jpg"
       },
       "ingest": {
-        "mode": "extract-mockup",
-        "done": true
+        "mode": "regenerated",
+        "done": true,
+        "note": "Original art file never existed (it was generated as a mockup)."
       },
-      "printNote": "Print extracted from the owner's turquoise mockup photo (475×400 px ≈ 48 dpi at 10 in). Fine for web previews; get the original art file (or a vector redraw) before production printing. Light shirts use a dark-teal ink version of the same art.",
+      "printNote": "Production print files regenerated as clean flat artwork (AI-generated recreation of the original mockup print at 1024 px, keyed to transparent and upscaled 3x to 2836 x 2257 px ≈ 284 dpi at 10 in). The upscale is interpolated, so fine detail is soft; fine for DTG at ~10 in, but a vector/hand-cleaned redraw would be sharper. Light shirts use the dark-teal ink version. Turquoise tee photo is the owner's original mockup.",
       "colors": {
         "tee": [
           {
@@ -269,19 +306,26 @@
             "why": "Pastel lilac for variety; dark-teal ink."
           }
         ]
+      },
+      "printFiles": {
+        "light": "/featured/print/my-shirt-print-light.png",
+        "dark": "/featured/print/my-shirt-print-dark.png"
       }
     },
     {
       "id": "ha-celtic-knot",
       "title": "(HA)ₙ Celtic Knot",
-      "status": "awaiting-file",
+      "status": "live",
       "inkMode": "original",
-      "description": "The owner's hyaluronic-acid Celtic-knot mark: teal and silver triquetra in parentheses with subscript n and the formula (C14H21NO11)n.",
-      "prints": {},
+      "description": "The owner's hyaluronic-acid Celtic-knot mark: teal and silver triquetra in parentheses with subscript n, the formula (C14H21NO11)n and the caption \"D-glucuronic acid · N-acetyl-D-glucosamine\".",
+      "prints": {
+        "original": "/featured/ha-celtic-knot-print.png"
+      },
       "photos": {},
       "ingest": {
         "mode": "remove-bg",
-        "note": "Off-white background removed to transparent; check the small caption line is legible at ~10 in print width (needs ≥ ~150 dpi)."
+        "note": "Off-white background removed to transparent; check the small caption line is legible at ~10 in print width (needs ≥ ~150 dpi).",
+        "done": true
       },
       "colors": {
         "tee": [
@@ -346,41 +390,48 @@
             "why": "Warm pastel contrast."
           }
         ]
+      },
+      "printNote": "Print file 1389px wide ≈ 139 dpi at 10 in (low — ask for a larger original before production). Mode: remove-bg. Caption line is ~0.17 in tall at 10 in width (≈12 pt caps) in thin light grey-teal: legible but faint, especially on Heather Mint/Lilac.",
+      "printFiles": {
+        "original": "/featured/print/ha-celtic-knot-print.png"
       }
     },
     {
       "id": "search-me-cologne",
       "title": "Search Me — cologne for two",
-      "status": "awaiting-file",
+      "status": "live",
       "inkMode": "original",
-      "description": "\"Search Me\" fragrance art: two navy bottles nested along a curve with gold caps on a soft blue backdrop.",
-      "prints": {},
+      "description": "\"Search Me\" — two scents, one connection: two navy bottles with gold caps nested along a curve, on a soft blue backdrop.",
+      "prints": {
+        "original": "/featured/search-me-cologne-print.png"
+      },
       "photos": {},
       "ingest": {
         "mode": "photo",
-        "note": "Photographic print with its soft-blue backdrop kept as a rounded panel."
+        "note": "Photographic print with its soft-blue backdrop kept as a rounded panel.",
+        "done": true
       },
       "colors": {
         "tee": [
           {
             "name": "White",
-            "why": "Always offered; frames the soft-blue photo panel."
+            "why": "Always offered; frames the soft-blue photo panel cleanly."
           },
           {
             "name": "Baby Blue",
-            "why": "Pastel that matches the photo backdrop."
+            "why": "Pastel that continues the photo's blue backdrop."
           },
           {
             "name": "Heather Prism Lilac",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
-          },
-          {
-            "name": "Soft Pink",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Soft pastel that flatters the cool blue palette."
           },
           {
             "name": "Heather Navy",
-            "why": "Echoes the navy bottles. Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Echoes the navy bottles; makes the light panel pop."
+          },
+          {
+            "name": "Soft Pink",
+            "why": "Warm pastel contrast for a gift/couples look."
           }
         ],
         "longsleeve": [
@@ -390,15 +441,15 @@
           },
           {
             "name": "Light Blue",
-            "why": "Matches the backdrop."
+            "why": "Continues the backdrop."
           },
           {
             "name": "Light Pink",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Warm pastel contrast."
           },
           {
             "name": "Navy",
-            "why": "Echoes the bottles. Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Echoes the bottles."
           }
         ],
         "hoodie": [
@@ -408,56 +459,63 @@
           },
           {
             "name": "Light Blue",
-            "why": "Matches the backdrop."
+            "why": "Continues the backdrop."
           },
           {
             "name": "Orchid",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Pastel lilac."
           },
           {
             "name": "Light Pink",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Warm pastel contrast."
           },
           {
             "name": "Navy",
-            "why": "Echoes the bottles. Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Echoes the bottles."
           }
         ]
+      },
+      "printNote": "Print file 1024px wide ≈ 102 dpi at 10 in (low — ask for a larger original before production). Mode: photo. Photo prints as a full rectangular panel (backdrop included).",
+      "printFiles": {
+        "original": "/featured/print/search-me-cologne-print.png"
       }
     },
     {
       "id": "search-me-statue",
       "title": "Search Me — silver statue",
-      "status": "awaiting-file",
+      "status": "live",
       "inkMode": "original",
-      "description": "Chrome male/female torso sculpture from the \"Search Me\" campaign.",
-      "prints": {},
+      "description": "\"Search Me\": a chrome sculpture in a glass case on a white marble pedestal, in a bright classical room.",
+      "prints": {
+        "original": "/featured/search-me-statue-print.png"
+      },
       "photos": {},
       "ingest": {
         "mode": "photo",
-        "note": "Use remove-bg instead if the photo has a plain backdrop."
+        "note": "Use remove-bg instead if the photo has a plain backdrop.",
+        "done": true
       },
       "colors": {
         "tee": [
           {
             "name": "White",
-            "why": "Always offered."
+            "why": "Always offered; the bright marble scene sits cleanly on white."
           },
           {
             "name": "Baby Blue",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Cool pastel that matches the silver/chrome tones."
           },
           {
             "name": "Heather Prism Lilac",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
-          },
-          {
-            "name": "Soft Pink",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Soft pastel that flatters chrome and marble."
           },
           {
             "name": "Heather Navy",
-            "why": "Chrome tones pop on navy. Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Dark frame that makes the bright photo panel stand out."
+          },
+          {
+            "name": "Black",
+            "why": "Gallery-style dark frame for the white room."
           }
         ],
         "longsleeve": [
@@ -467,15 +525,15 @@
           },
           {
             "name": "Light Blue",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
-          },
-          {
-            "name": "Light Pink",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Cool pastel."
           },
           {
             "name": "Navy",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Dark frame for the bright photo."
+          },
+          {
+            "name": "Black",
+            "why": "Gallery-style dark frame."
           }
         ],
         "hoodie": [
@@ -485,93 +543,101 @@
           },
           {
             "name": "Light Blue",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Cool pastel."
           },
           {
             "name": "Orchid",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
-          },
-          {
-            "name": "Light Pink",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Soft pastel."
           },
           {
             "name": "Navy",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "why": "Dark frame."
+          },
+          {
+            "name": "Black",
+            "why": "Gallery-style dark frame."
           }
         ]
+      },
+      "printNote": "Print file 1024px wide ≈ 102 dpi at 10 in (low — ask for a larger original before production). Mode: photo. Photo prints as a full rectangular panel (backdrop included).",
+      "printFiles": {
+        "original": "/featured/print/search-me-statue-print.png"
       }
     },
     {
       "id": "sooke-rainforest",
       "title": "Sooke Rainforest",
-      "status": "awaiting-file",
+      "status": "live",
       "inkMode": "original",
-      "description": "Sooke rainforest artwork.",
-      "prints": {},
+      "description": "'Welcome to Sooke — we don't fix stupid': hand-drawn rainforest coast in a round vignette with grunge lettering.",
+      "prints": {
+        "original": "/featured/sooke-rainforest-print.png"
+      },
       "photos": {},
       "ingest": {
-        "mode": "photo"
+        "mode": "remove-bg",
+        "note": "Black background knocked out to transparent; designed for dark shirts.",
+        "done": true
       },
       "colors": {
         "tee": [
           {
-            "name": "White",
-            "why": "Always offered."
+            "name": "Black",
+            "why": "Owner pick: the art was drawn on black, so it prints exactly as designed."
           },
           {
-            "name": "Heather Mint",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "name": "Forest",
+            "why": "Owner pick: deep green extends the rainforest canopy."
           },
           {
-            "name": "Baby Blue",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "name": "Heather Navy",
+            "why": "Owner pick: dark ocean blue that suits the coastline."
           },
           {
-            "name": "Yellow",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
-          },
-          {
-            "name": "Kelly",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "name": "Dark Grey Heather",
+            "why": "Owner's 'Charcoal' (Bella+Canvas name): soft dark neutral."
           }
         ],
         "longsleeve": [
           {
-            "name": "White",
-            "why": "Always offered."
+            "name": "Black",
+            "why": "Owner pick: matches the original black art."
           },
           {
-            "name": "Light Blue",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "name": "Forest Green",
+            "why": "Owner pick: rainforest green."
           },
           {
-            "name": "Daisy",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "name": "Navy",
+            "why": "Owner pick (Gildan 2400 has Navy, not Heather Navy)."
           },
           {
-            "name": "Irish Green",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "name": "Charcoal",
+            "why": "Owner pick: dark neutral."
           }
         ],
         "hoodie": [
           {
-            "name": "White",
-            "why": "Always offered."
+            "name": "Black",
+            "why": "Owner pick: matches the original black art."
           },
           {
-            "name": "Mint Green",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "name": "Forest Green",
+            "why": "Owner pick: rainforest green."
           },
           {
-            "name": "Light Blue",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "name": "Navy",
+            "why": "Owner pick (Gildan 18500 Navy)."
           },
           {
-            "name": "Irish Green",
-            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+            "name": "Charcoal",
+            "why": "Owner pick: dark neutral."
           }
         ]
+      },
+      "printNote": "Print file 1210px wide ≈ 121 dpi at 10 in (low — ask for a larger original before production). Mode: remove-bg. Black background knocked out; on a Black shirt it looks identical to the original.",
+      "printFiles": {
+        "original": "/featured/print/sooke-rainforest-print.png"
       }
     },
     {

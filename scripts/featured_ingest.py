@@ -29,7 +29,10 @@ for l in seed['listings']:
         m = Image.new('L', im.size, 0); ImageDraw.Draw(m).rounded_rectangle([0, 0, im.width - 1, im.height - 1], radius=max(12, im.width // 18), fill=255); im.putalpha(m); im.save(out)
     else:
         remove_bg(keep, out, a.tol)
-    w = Image.open(out).width; dpi = w / 10
+    full = os.path.join(ROOT, 'public', 'featured', 'print', os.path.basename(out)); os.makedirs(os.path.dirname(full), exist_ok=True)
+    shutil.move(out, full); web = Image.open(full); web.thumbnail((900, 900)); web.save(out, optimize=True)   # site preview copy
+    l['printFiles'] = {'original': '/featured/print/' + os.path.basename(out)}
+    w = Image.open(full).width; dpi = w / 10
     l['prints'] = {'original': '/featured/' + os.path.basename(out)}; l['status'] = 'live'; l.setdefault('ingest', {})['done'] = True
     l['printNote'] = f"Print file {w}px wide ≈ {dpi:.0f} dpi at 10 in ({'good' if dpi >= 150 else 'low — ask for a larger original before production'}). Mode: {mode}."
     print(f"+ {l['id']}: {mode} -> {out} ({dpi:.0f} dpi @10in)"); done += 1
