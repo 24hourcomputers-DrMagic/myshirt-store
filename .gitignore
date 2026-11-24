@@ -7,3 +7,4 @@ data/uploads/
 server.log
 *.pid
 .render-admin-password
+__pycache__/

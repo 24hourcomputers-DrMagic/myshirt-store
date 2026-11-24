@@ -5,10 +5,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" href="/designs/waves-teal.svg"><link rel="stylesheet" href="/css/site.css">
 </head><body>
+<div id="promo" class="promo-bar" hidden></div>
 <div id="announce" class="announce" hidden></div>
 <header class="site-header" id="top"><div class="wrap nav">
   <a href="/" id="brand" class="brand"></a>
-  <nav class="links"><a href="#configurator">Shop</a><a href="#gallery">Gallery</a><a href="#collections">Collections</a><a href="#story">Story</a></nav>
+  <nav class="links"><a href="#featured-art">Sale</a><a href="#configurator">Shop</a><a href="#gallery">Gallery</a><a href="#collections">Collections</a><a href="#story">Story</a></nav>
   <button class="bag-btn" id="bagBtn" aria-label="Open bag">Bag <span id="bagCount">0</span></button>
 </div></header>
 <main id="sections"></main>
@@ -27,6 +28,7 @@
   <p class="fine center" id="payNote"></p>
 </div></aside>
 <div class="scrim" id="scrim"></div>
+<div class="modal" id="fmodal" aria-hidden="true" role="dialog" aria-label="Featured artwork"><div class="modal-card" id="fmodalBody"></div></div>
 <div class="toast" id="toast"></div>
 <script src="/js/common.js"></script><script src="/js/shirt.js"></script><script src="/js/site.js"></script>
 </body></html>

@@ -18,7 +18,7 @@
     $('#warn').hidden = !w.length; $('#warn').innerHTML = w.map(esc).join('<br>'); render();
   }
   $('#tabs').onclick = e => { const b = e.target.closest('[data-tab]'); if (!b) return; tab = b.dataset.tab; location.hash = tab; render(); };
-  function render() { $$('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === tab)); ({ theme, sections, gallery, products, shipping, content, orders })[tab](); }
+  function render() { $$('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === tab)); ({ theme, sections, gallery, featured, products, shipping, content, orders })[tab](); }
   const frame = (src = '/') => `<iframe class="preview-frame" id="pf" src="${src}" title="Live preview"></iframe>`;
   const refreshFrame = () => { const f = $('#pf'); if (f) f.contentWindow.location.reload(); };
 
@@ -111,6 +111,44 @@
       $('#saveOrder').onclick = async () => { try { await api('PUT', '/api/admin/gallery-order', { ids: g.map(d => d.id) }); toast('Gallery order saved'); } catch (e) { toast(e.message); } };
     }
     draw();
+  }
+
+  // Featured Artwork: ready-made half-price listings from an uploaded image
+  async function removeFlatBg(file, tol = 18) { // corner-sampled background -> transparent (same idea as scripts/featured_tools.py remove-bg)
+    const img = await createImageBitmap(file), cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height;
+    const cx = cv.getContext('2d'); cx.drawImage(img, 0, 0); const d = cx.getImageData(0, 0, cv.width, cv.height), p = d.data, k = Math.max(4, Math.floor(Math.min(cv.width, cv.height) / 50));
+    const sm = [[0, 0], [cv.width - k, 0], [0, cv.height - k], [cv.width - k, cv.height - k]].flatMap(([x0, y0]) => { const a = []; for (let y = y0; y < y0 + k; y++) for (let x = x0; x < x0 + k; x++) { const i = (y * cv.width + x) * 4; a.push([p[i], p[i + 1], p[i + 2]]); } return a; });
+    const med = [0, 1, 2].map(ch => sm.map(v => v[ch]).sort((a, b) => a - b)[sm.length >> 1]);
+    for (let i = 0; i < p.length; i += 4) { const dd = Math.hypot(p[i] - med[0], p[i + 1] - med[1], p[i + 2] - med[2]); const a = Math.max(0, Math.min(1, (dd - tol) / (tol * 1.5)));
+      if (a < 1) { const sa = Math.max(a, .2); for (let c = 0; c < 3; c++) p[i + c] = Math.max(0, Math.min(255, (p[i + c] - (1 - sa) * med[c]) / sa)); } p[i + 3] = Math.min(p[i + 3], a * 255); }
+    cx.putImageData(d, 0, 0); const blob = await new Promise(r => cv.toBlob(r, 'image/png')); return new File([blob], file.name.replace(/\.[^.]+$/, '') + '-transparent.png', { type: 'image/png' });
+  }
+  async function featured() {
+    let F = await api('GET', '/api/admin/featured'); const G = F.garments, P = F.palette;
+    const defaults = { tee: ['White', 'Heather Mint', 'Baby Blue', 'Heather Prism Lilac', 'Soft Pink'], longsleeve: ['White', 'Light Blue', 'Light Pink', 'Daisy'], hoodie: ['White', 'Mint Green', 'Light Blue', 'Orchid', 'Light Pink'] };
+    const colorPick = (pref, chosen = defaults) => Object.entries(P).map(([g, pal]) => `<div class="field">${esc(G[g].label)} — ${fmt(G[g].price)} <s>${fmt(G[g].compareAt)}</s><div class="sizes-pick">${Object.entries(pal).map(([n, v]) => `<label title="${v.ink === 'dark' ? 'light shirt' : 'colourful/dark shirt'}"><input type="checkbox" data-${pref}="${g}|${esc(n)}" ${(chosen[g] || []).includes(n) ? 'checked' : ''}><i style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${v.hex};border:1px solid #888"></i>${esc(n)}</label>`).join('')}</div></div>`).join('');
+    const readColors = pref => { const out = {}; $$(`[data-${pref}]`).forEach(i => { if (!i.checked) return; const [g, n] = i.dataset[pref].split('|'); (out[g] ||= []).push({ name: n }); }); return out; };
+    $('#panel').innerHTML = `<h2>Featured Artwork</h2><p class="muted">Ready-made listings from one image: tee ${fmt(G.tee.price)}, long sleeve ${fmt(G.longsleeve.price)}, hoodie ${fmt(G.hoodie.price)} — each shown as 50% off the compare-at price. Pick light/pastel shirts for dark art and colourful shirts for light art; White is always a good idea.</p>
+      <div class="card"><p class="fine">Promo banner</p><div class="row"><label class="row" style="gap:6px"><input type="checkbox" id="prOn" ${F.promo.enabled ? 'checked' : ''}> Show</label><input id="prT" value="${esc(F.promo.text)}" style="flex:1"><button class="mini" id="prSave">Save banner</button></div></div>
+      <form class="card" id="faForm"><h3>Add a listing from an upload</h3><div class="row"><label class="field">Artwork image<input type="file" name="file" accept="image/*" required></label><label class="field">Title<input name="title" required placeholder="e.g. Search Me — cologne for two"></label></div>
+        <label class="field">Description<input name="description"></label><label class="row" style="gap:6px;margin-bottom:12px"><input type="checkbox" id="rmbg" checked> Remove a flat/plain background (makes it transparent)</label>
+        <div id="faPrev" class="row"></div>${colorPick('nc')}<button class="btn btn-primary">Create listing</button>
+        <p class="fine">Admin uploads are runtime data: on the free Render preview they vanish on redeploy. To make a listing permanent, ask a bot to add it to <code>data/featured.seed.json</code> (use “Export”).</p></form>
+      ${F.listings.map(l => `<div class="card"><div class="row"><strong style="flex:1">${esc(l.title)}</strong><span class="badge">${esc(l.source)}</span><span class="badge" style="${l.status === 'live' ? 'color:#7fe0c4' : 'color:#f2c26b'}">${esc(l.status)}</span>${l.hidden ? '<span class="badge">hidden</span>' : ''}
+          <button class="mini" data-hide="${l.id}">${l.hidden ? 'Show' : 'Hide'}</button><a class="mini" href="/api/admin/featured/${l.id}/export" target="_blank">Export</a>${l.source === 'admin' ? `<button class="mini danger" data-del="${l.id}">Delete</button>` : ''}</div>
+        <div class="row" style="align-items:flex-start;margin-top:10px">${Object.values(l.prints).filter(Boolean).map(u => `<img src="${esc(u)}" style="width:110px;height:110px;object-fit:contain;background:repeating-conic-gradient(#2a2f36 0 25%,#1c2026 0 50%) 0 0/16px 16px;border-radius:10px">`).join('') || '<span class="muted">No art file yet.</span>'}
+          <div style="flex:1;min-width:260px">${Object.entries(l.colors).map(([g, cs]) => `<p class="fine"><b>${esc(G[g].label)}:</b> ${cs.map(c => `<span title="${esc(c.why)}"><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${c.hex};border:1px solid #888"></i> ${esc(c.name)}</span>`).join(' · ')}</p>`).join('')}
+          ${l.printNote ? `<p class="fine">${esc(l.printNote)}</p>` : ''}${l.status !== 'live' ? `<label class="mini">Upload art for this listing<input type="file" accept="image/*" data-art="${l.id}" hidden></label> <span class="fine">${esc(l.ingest?.note || '')}</span>` : ''}</div></div></div>`).join('')}`;
+    let processed = null;
+    $('#faForm [name=file]').onchange = async e => { const f = e.target.files[0]; if (!f) return; processed = $('#rmbg').checked ? await removeFlatBg(f) : f; $('#faPrev').innerHTML = `<img src="${URL.createObjectURL(processed)}" style="width:160px;height:160px;object-fit:contain;background:repeating-conic-gradient(#2a2f36 0 25%,#1c2026 0 50%) 0 0/16px 16px;border-radius:10px"><span class="fine">Preview of the print file</span>`; };
+    $('#rmbg').onchange = () => $('#faForm [name=file]').dispatchEvent(new Event('change'));
+    $('#faForm').onsubmit = async e => { e.preventDefault(); const fd = new FormData(e.target); if (processed) fd.set('file', processed); fd.set('colors', JSON.stringify(readColors('nc')));
+      try { await api('POST', '/api/admin/featured', fd, true); toast('Listing created — live on the homepage'); featured(); } catch (err) { toast(err.message); } };
+    $('#prSave').onclick = async () => { await api('PUT', '/api/admin/featured-promo', { enabled: $('#prOn').checked, text: $('#prT').value }); toast('Banner saved'); };
+    $$('[data-hide]').forEach(b => b.onclick = async () => { const l = F.listings.find(x => x.id === b.dataset.hide); await api('PUT', `/api/admin/featured/${l.id}`, { hidden: !l.hidden }); featured(); });
+    $$('[data-del]').forEach(b => b.onclick = async () => { if (!confirm('Delete this listing?')) return; await api('DELETE', `/api/admin/featured/${b.dataset.del}`); featured(); });
+    $$('[data-art]').forEach(i => i.onchange = async () => { const f = confirm('Remove a flat background from this image?') ? await removeFlatBg(i.files[0]) : i.files[0]; const fd = new FormData(); fd.append('file', f);
+      try { await api('POST', `/api/admin/featured/${i.dataset.art}/art`, fd, true); toast('Art attached — listing is live'); featured(); } catch (e) { toast(e.message); } });
   }
 
   // 4. Product Editor

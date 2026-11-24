@@ -1,0 +1,794 @@
+{
+  "promo": {
+    "enabled": true,
+    "text": "Launch sale: featured artwork half price — tees $49.99 · long sleeves $54.99 · hoodies $69.99 (CAD)"
+  },
+  "garments": {
+    "tee": {
+      "label": "T-shirt",
+      "blank": "Bella+Canvas 3001 Unisex Jersey Tee (100% cotton)",
+      "price": 49.99,
+      "compareAt": 99.98,
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "silhouette": "crew"
+    },
+    "longsleeve": {
+      "label": "Long sleeve",
+      "blank": "Gildan 2400 Ultra Cotton Long Sleeve (100% cotton)",
+      "price": 54.99,
+      "compareAt": 109.98,
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "silhouette": "longsleeve"
+    },
+    "hoodie": {
+      "label": "Pullover hoodie",
+      "blank": "Gildan 18500 Heavy Blend Hoodie (50/50 cotton-poly)",
+      "price": 69.99,
+      "compareAt": 139.98,
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "silhouette": "hoodie"
+    }
+  },
+  "palette": {
+    "tee": {
+      "White": {
+        "hex": "#ffffff",
+        "ink": "dark"
+      },
+      "Heather Mint": {
+        "hex": "#a9d9c4",
+        "ink": "dark"
+      },
+      "Soft Pink": {
+        "hex": "#f6d0d6",
+        "ink": "dark"
+      },
+      "Baby Blue": {
+        "hex": "#b5cfe9",
+        "ink": "dark"
+      },
+      "Heather Prism Lilac": {
+        "hex": "#d6c6e3",
+        "ink": "dark"
+      },
+      "Yellow": {
+        "hex": "#f8e27c",
+        "ink": "dark"
+      },
+      "Peach": {
+        "hex": "#f8c6a6",
+        "ink": "dark"
+      },
+      "Turquoise": {
+        "hex": "#19a3a8",
+        "ink": "light"
+      },
+      "Kelly": {
+        "hex": "#1f9a57",
+        "ink": "light"
+      },
+      "True Royal": {
+        "hex": "#2a4c9f",
+        "ink": "light"
+      },
+      "Heather Navy": {
+        "hex": "#3b4560",
+        "ink": "light"
+      }
+    },
+    "longsleeve": {
+      "White": {
+        "hex": "#ffffff",
+        "ink": "dark"
+      },
+      "Light Blue": {
+        "hex": "#b6cde4",
+        "ink": "dark"
+      },
+      "Light Pink": {
+        "hex": "#f4c9d3",
+        "ink": "dark"
+      },
+      "Carolina Blue": {
+        "hex": "#7ea7d8",
+        "ink": "dark"
+      },
+      "Daisy": {
+        "hex": "#f7d64a",
+        "ink": "dark"
+      },
+      "Irish Green": {
+        "hex": "#1f9450",
+        "ink": "light"
+      },
+      "Royal": {
+        "hex": "#2b4b9e",
+        "ink": "light"
+      },
+      "Purple": {
+        "hex": "#5b3f8c",
+        "ink": "light"
+      },
+      "Navy": {
+        "hex": "#25304a",
+        "ink": "light"
+      }
+    },
+    "hoodie": {
+      "White": {
+        "hex": "#ffffff",
+        "ink": "dark"
+      },
+      "Light Pink": {
+        "hex": "#f3c6d0",
+        "ink": "dark"
+      },
+      "Light Blue": {
+        "hex": "#b3cde3",
+        "ink": "dark"
+      },
+      "Mint Green": {
+        "hex": "#b9e3c9",
+        "ink": "dark"
+      },
+      "Orchid": {
+        "hex": "#c9a8d6",
+        "ink": "dark"
+      },
+      "Carolina Blue": {
+        "hex": "#7ba4db",
+        "ink": "dark"
+      },
+      "Sapphire": {
+        "hex": "#0f7fb3",
+        "ink": "light"
+      },
+      "Irish Green": {
+        "hex": "#1f8f4e",
+        "ink": "light"
+      },
+      "Royal": {
+        "hex": "#2b4b9e",
+        "ink": "light"
+      },
+      "Heliconia": {
+        "hex": "#e0479e",
+        "ink": "light"
+      },
+      "Navy": {
+        "hex": "#25304a",
+        "ink": "light"
+      }
+    }
+  },
+  "listings": [
+    {
+      "id": "my-shirt-turquoise",
+      "title": "my shirt — Coast Range",
+      "status": "live",
+      "inkMode": "auto",
+      "description": "The original \"my shirt\" art: clean lowercase wordmark over misty Coast Range peaks and a calm inlet.",
+      "prints": {
+        "light": "/featured/my-shirt-print-light.png",
+        "dark": "/featured/my-shirt-print-dark.png"
+      },
+      "photos": {
+        "tee|Turquoise": "/featured/my-shirt-turquoise-photo.jpg"
+      },
+      "ingest": {
+        "mode": "extract-mockup",
+        "done": true
+      },
+      "printNote": "Print extracted from the owner's turquoise mockup photo (475×400 px ≈ 48 dpi at 10 in). Fine for web previews; get the original art file (or a vector redraw) before production printing. Light shirts use a dark-teal ink version of the same art.",
+      "colors": {
+        "tee": [
+          {
+            "name": "Turquoise",
+            "why": "The owner's own mockup colour — real product photo; white-ink print as designed."
+          },
+          {
+            "name": "White",
+            "why": "Always offered; uses the dark-teal ink version so the wordmark stays readable."
+          },
+          {
+            "name": "Heather Mint",
+            "why": "Pastel sea-glass green that echoes the misty water; dark-teal ink."
+          },
+          {
+            "name": "Baby Blue",
+            "why": "Soft sky pastel that matches the coastal scene; dark-teal ink."
+          },
+          {
+            "name": "Heather Prism Lilac",
+            "why": "Pastel dusk tone for variety beyond blues/greens; dark-teal ink."
+          },
+          {
+            "name": "True Royal",
+            "why": "One bold colourful option where the original white-ink print pops."
+          }
+        ],
+        "longsleeve": [
+          {
+            "name": "White",
+            "why": "Always offered; dark-teal ink."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Closest pastel to the coast palette; dark-teal ink."
+          },
+          {
+            "name": "Carolina Blue",
+            "why": "Brighter mid-blue, still light enough for dark ink."
+          },
+          {
+            "name": "Light Pink",
+            "why": "Pastel contrast colour; dark-teal ink."
+          },
+          {
+            "name": "Royal",
+            "why": "Colourful option carrying the original white-ink print."
+          }
+        ],
+        "hoodie": [
+          {
+            "name": "Sapphire",
+            "why": "Gildan 18500's closest match to the turquoise original; white-ink print."
+          },
+          {
+            "name": "White",
+            "why": "Always offered; dark-teal ink."
+          },
+          {
+            "name": "Mint Green",
+            "why": "Pastel sea-glass; dark-teal ink."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Pastel sky; dark-teal ink."
+          },
+          {
+            "name": "Orchid",
+            "why": "Pastel lilac for variety; dark-teal ink."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ha-celtic-knot",
+      "title": "(HA)ₙ Celtic Knot",
+      "status": "awaiting-file",
+      "inkMode": "original",
+      "description": "The owner's hyaluronic-acid Celtic-knot mark: teal and silver triquetra in parentheses with subscript n and the formula (C14H21NO11)n.",
+      "prints": {},
+      "photos": {},
+      "ingest": {
+        "mode": "remove-bg",
+        "note": "Off-white background removed to transparent; check the small caption line is legible at ~10 in print width (needs ≥ ~150 dpi)."
+      },
+      "colors": {
+        "tee": [
+          {
+            "name": "White",
+            "why": "Always offered; the teal/silver ink reads cleanly."
+          },
+          {
+            "name": "Heather Mint",
+            "why": "Pastel that harmonises with the teal knot."
+          },
+          {
+            "name": "Baby Blue",
+            "why": "Pastel cool tone; teal stays visible."
+          },
+          {
+            "name": "Heather Prism Lilac",
+            "why": "Pastel contrast to teal."
+          },
+          {
+            "name": "Soft Pink",
+            "why": "Warm pastel contrast; no dark colours because the dark-teal ink would disappear."
+          }
+        ],
+        "longsleeve": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Pastel cool tone."
+          },
+          {
+            "name": "Light Pink",
+            "why": "Warm pastel contrast."
+          },
+          {
+            "name": "Daisy",
+            "why": "Light, cheerful pastel yellow; teal still reads."
+          }
+        ],
+        "hoodie": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Mint Green",
+            "why": "Pastel match for the teal."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Pastel cool tone."
+          },
+          {
+            "name": "Orchid",
+            "why": "Pastel lilac contrast."
+          },
+          {
+            "name": "Light Pink",
+            "why": "Warm pastel contrast."
+          }
+        ]
+      }
+    },
+    {
+      "id": "search-me-cologne",
+      "title": "Search Me — cologne for two",
+      "status": "awaiting-file",
+      "inkMode": "original",
+      "description": "\"Search Me\" fragrance art: two navy bottles nested along a curve with gold caps on a soft blue backdrop.",
+      "prints": {},
+      "photos": {},
+      "ingest": {
+        "mode": "photo",
+        "note": "Photographic print with its soft-blue backdrop kept as a rounded panel."
+      },
+      "colors": {
+        "tee": [
+          {
+            "name": "White",
+            "why": "Always offered; frames the soft-blue photo panel."
+          },
+          {
+            "name": "Baby Blue",
+            "why": "Pastel that matches the photo backdrop."
+          },
+          {
+            "name": "Heather Prism Lilac",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Soft Pink",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Heather Navy",
+            "why": "Echoes the navy bottles. Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ],
+        "longsleeve": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Matches the backdrop."
+          },
+          {
+            "name": "Light Pink",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Navy",
+            "why": "Echoes the bottles. Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ],
+        "hoodie": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Matches the backdrop."
+          },
+          {
+            "name": "Orchid",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Light Pink",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Navy",
+            "why": "Echoes the bottles. Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ]
+      }
+    },
+    {
+      "id": "search-me-statue",
+      "title": "Search Me — silver statue",
+      "status": "awaiting-file",
+      "inkMode": "original",
+      "description": "Chrome male/female torso sculpture from the \"Search Me\" campaign.",
+      "prints": {},
+      "photos": {},
+      "ingest": {
+        "mode": "photo",
+        "note": "Use remove-bg instead if the photo has a plain backdrop."
+      },
+      "colors": {
+        "tee": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Baby Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Heather Prism Lilac",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Soft Pink",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Heather Navy",
+            "why": "Chrome tones pop on navy. Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ],
+        "longsleeve": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Light Pink",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Navy",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ],
+        "hoodie": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Orchid",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Light Pink",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Navy",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sooke-rainforest",
+      "title": "Sooke Rainforest",
+      "status": "awaiting-file",
+      "inkMode": "original",
+      "description": "Sooke rainforest artwork.",
+      "prints": {},
+      "photos": {},
+      "ingest": {
+        "mode": "photo"
+      },
+      "colors": {
+        "tee": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Heather Mint",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Baby Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Yellow",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Kelly",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ],
+        "longsleeve": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Daisy",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Irish Green",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ],
+        "hoodie": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Mint Green",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Irish Green",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sooke-vintage-badge",
+      "title": "Sooke Vintage Badge",
+      "status": "awaiting-file",
+      "inkMode": "original",
+      "description": "Vintage-style Sooke badge artwork.",
+      "prints": {},
+      "photos": {},
+      "ingest": {
+        "mode": "remove-bg"
+      },
+      "colors": {
+        "tee": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Peach",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Yellow",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Heather Mint",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Baby Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ],
+        "longsleeve": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Daisy",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Light Pink",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ],
+        "hoodie": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Light Pink",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Mint Green",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sooke-trail-sign",
+      "title": "Sooke Trail Sign",
+      "status": "awaiting-file",
+      "inkMode": "original",
+      "description": "Sooke trail-sign artwork.",
+      "prints": {},
+      "photos": {},
+      "ingest": {
+        "mode": "remove-bg"
+      },
+      "colors": {
+        "tee": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Heather Mint",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Peach",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Baby Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Kelly",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ],
+        "longsleeve": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Daisy",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Irish Green",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ],
+        "hoodie": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Mint Green",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Irish Green",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ]
+      }
+    },
+    {
+      "id": "botbucks-logo",
+      "title": "BotBucks",
+      "status": "awaiting-file",
+      "inkMode": "original",
+      "description": "BotBucks logo tee.",
+      "prints": {},
+      "photos": {},
+      "ingest": {
+        "mode": "remove-bg"
+      },
+      "colors": {
+        "tee": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Baby Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Heather Mint",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Yellow",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Heather Prism Lilac",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ],
+        "longsleeve": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Daisy",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Carolina Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ],
+        "hoodie": [
+          {
+            "name": "White",
+            "why": "Always offered."
+          },
+          {
+            "name": "Light Blue",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Mint Green",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          },
+          {
+            "name": "Orchid",
+            "why": "Provisional: picked from the owner's description only (art not viewed yet); re-check against the art at ingest."
+          }
+        ]
+      }
+    }
+  ]
+}

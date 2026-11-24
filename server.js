@@ -8,6 +8,7 @@ const store = require('./lib/store');
 const { COUNTRIES } = require('./lib/regions');
 const { quote } = require('./lib/shipping');
 const D = require('./lib/defaults');
+const F = require('./lib/featured');
 
 const PORT = process.env.PORT || 4317;
 const ADMIN_PASSWORD = (process.env.ADMIN_PASSWORD || '').trim() || 'sooke-tides';
@@ -18,7 +19,7 @@ const stripe = stripeMode === 'test' ? require('stripe')(SK) : null;
 if (stripeMode === 'refused-live') console.warn('[stripe] A non-test key was provided; checkout stays in demo mode (test keys only).');
 console.log(`[stripe] mode: ${stripeMode}`);
 
-store.load();
+store.load(); F.ensureState(store.get());
 const UPLOAD_DIR = path.join(store.DATA_DIR, 'uploads'); fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 const upload = multer({ storage: multer.diskStorage({ destination: UPLOAD_DIR, filename: (req, file, cb) => cb(null, Date.now().toString(36) + '-' + crypto.randomBytes(3).toString('hex') + (path.extname(file.originalname).toLowerCase().replace(/[^.a-z0-9]/g, '') || '.png')) }),
   limits: { fileSize: 8 * 1024 * 1024 }, fileFilter: (req, file, cb) => cb(null, /^image\/(png|jpe?g|webp|gif|svg\+xml)$/.test(file.mimetype)) });
@@ -54,6 +55,7 @@ app.get('/api/config', (req, res) => {
   const s = S();
   res.json({ theme: s.theme, fontPairs: D.fontPairs, sections: s.sections, content: s.content, products: s.products,
     shipping: { currency: s.shipping.currency, freeThreshold: s.shipping.freeThreshold, zones: s.shipping.zones }, countries: COUNTRIES,
+    featured: F.publicData(s),
     stripe: { mode: stripeMode, publishableKey: stripeMode === 'test' && PK.startsWith('pk_test_') ? PK : null } });
 });
 app.get('/api/designs', (req, res) => {
@@ -63,6 +65,7 @@ app.get('/api/designs', (req, res) => {
   res.json(g);
 });
 app.get('/api/products', (req, res) => res.json(S().products));
+app.get('/api/featured', (req, res) => res.json(F.publicData(S())));
 app.get('/api/countries', (req, res) => res.json(COUNTRIES));
 app.post('/api/shipping/quote', (req, res) => {
   const { country, region, itemCount = 1, subtotal = 0 } = req.body || {};
@@ -80,11 +83,16 @@ function priceCart(items) {
   const s = S(); const out = [];
   if (!Array.isArray(items) || !items.length) throw new Error('Your bag is empty.');
   for (const it of items.slice(0, 50)) {
+    const qty = Math.min(20, Math.max(1, parseInt(it.qty, 10) || 1));
+    if (it.kind === 'featured') {
+      const f = F.priceItem(s, it);
+      out.push({ featured: true, product: { id: `featured-${it.garment}`, name: `Featured ${f.garment.label}` }, design: { id: f.listing.id, title: f.listing.title }, color: f.color.name, size: it.size, qty, unit: f.unit, compareAt: f.compareAt, garment: it.garment });
+      continue;
+    }
     const p = s.products.find(x => x.id === it.productId); if (!p || !p.inStock) throw new Error('A style in your bag is unavailable.');
     const d = s.gallery.find(x => x.id === it.designId && !x.hidden); if (!d) throw new Error('A design in your bag is unavailable.');
     if (!p.sizes.includes(it.size)) throw new Error(`Size ${it.size} isn't available in ${p.name}.`);
     const c = p.colors.find(x => x.name === it.color); if (!c) throw new Error(`Colour ${it.color} isn't available in ${p.name}.`);
-    const qty = Math.min(20, Math.max(1, parseInt(it.qty, 10) || 1));
     out.push({ product: p, design: d, color: c.name, size: it.size, qty, unit: Number(p.price) });
   }
   return out;
@@ -92,13 +100,13 @@ function priceCart(items) {
 function buildOrder(body, channel) {
     const { items, country, region, email } = body || {};
     const lines = priceCart(items);
-    const subtotal = lines.reduce((a, l) => a + l.unit * l.qty, 0);
+    const subtotal = Math.round(lines.reduce((a, l) => a + l.unit * l.qty, 0) * 100) / 100;
     const count = lines.reduce((a, l) => a + l.qty, 0);
     const ship = quote(S().shipping, country, region, count, subtotal);
     if (!ship.ok) throw new Error(ship.error);
     const order = { channel, id: 'MS-' + Date.now().toString(36).toUpperCase(), createdAt: new Date().toISOString(), status: 'pending', mode: stripe ? 'stripe-test' : 'demo',
-      country, region, email: email || null, items: lines.map(l => ({ style: l.product.name, design: l.design.title, designId: l.design.id, color: l.color, size: l.size, qty: l.qty, unit: l.unit })),
-      subtotal, shipping: ship.amount, total: subtotal + ship.amount, currency: ship.currency };
+      country, region, email: email || null, items: lines.map(l => ({ kind: l.featured ? 'featured' : 'custom', garment: l.garment, compareAt: l.compareAt, style: l.product.name, design: l.design.title, designId: l.design.id, color: l.color, size: l.size, qty: l.qty, unit: l.unit })),
+      subtotal, shipping: ship.amount, total: Math.round((subtotal + ship.amount) * 100) / 100, currency: ship.currency };
     return { order, lines, ship };
 }
 app.post('/api/checkout/quote', (req, res) => { try { const { order } = buildOrder(req.body, 'quote'); res.json({ items: order.items, subtotal: order.subtotal, shipping: order.shipping, total: order.total, currency: order.currency }); } catch (e) { res.status(400).json({ error: e.message }); } });
@@ -123,7 +131,7 @@ app.post('/api/checkout', async (req, res) => {
     const cur = (ship.currency || 'CAD').toLowerCase();
     const session = await stripe.checkout.sessions.create({
       mode: 'payment', customer_email: order.email || undefined,
-      line_items: lines.map(l => ({ quantity: l.qty, price_data: { currency: cur, unit_amount: money(l.unit), product_data: { name: `${l.product.name} — ${l.design.title}`, description: `${l.color} · Size ${l.size}`, metadata: { productId: l.product.id, designId: l.design.id } } } })),
+      line_items: lines.map(l => ({ quantity: l.qty, price_data: { currency: cur, unit_amount: money(l.unit), product_data: { name: `${l.product.name} — ${l.design.title}`, description: `${l.color} · Size ${l.size}${l.compareAt ? ` · Launch sale 50% off (reg. $${l.compareAt.toFixed(2)})` : ''}`, metadata: { productId: l.product.id, designId: l.design.id } } } })),
       shipping_address_collection: { allowed_countries: ['CA', 'US', 'MX'] },
       shipping_options: [{ shipping_rate_data: { type: 'fixed_amount', display_name: ship.free ? `Free shipping — ${ship.label}` : `Standard — ${ship.label}`, fixed_amount: { amount: money(ship.amount), currency: cur },
         delivery_estimate: { minimum: { unit: 'business_day', value: parseInt(ship.days) || 3 }, maximum: { unit: 'business_day', value: parseInt(String(ship.days).split(/[–-]/)[1]) || 10 } } } }],
@@ -219,6 +227,34 @@ A.delete('/gallery/:id', (req, res) => {
   store.save(); res.json({ ok: true });
 });
 A.put('/gallery-order', (req, res) => { const ids = req.body?.ids; if (!Array.isArray(ids)) return res.status(400).json({ error: 'ids required' }); const pos = new Map(ids.map((id, i) => [id, i])); S().gallery.forEach(d => { d.order = pos.has(d.id) ? pos.get(d.id) : 10000 + d.order; }); store.save(); res.json({ ok: true }); });
+// Featured artwork (seed listings live in data/featured.seed.json; admin additions are runtime data)
+A.get('/featured', (req, res) => res.json({ ...F.publicData(S()), listings: F.all(S()), promo: F.promo(S()) }));
+const slug = t => String(t || 'art').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'art';
+function parseColors(raw) { let c = raw; if (typeof c === 'string') c = JSON.parse(c || '{}'); const out = {}; for (const g of Object.keys(F.getSeed().garments)) out[g] = (c?.[g] || []).filter(x => F.getSeed().palette[g]?.[x.name]).map(x => ({ name: x.name, why: String(x.why || '') })); return out; }
+A.post('/featured', upload.single('file'), (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: 'Upload the artwork image (PNG with transparency works best).' });
+    const s = S(), title = String(req.body.title || 'New artwork').slice(0, 80); let id = slug(title); if (F.all(s).some(l => l.id === id)) id += '-' + Date.now().toString(36).slice(-4);
+    const colors = parseColors(req.body.colors); if (!Object.values(colors).some(a => a.length)) return res.status(400).json({ error: 'Pick at least one colour.' });
+    s.featuredExtra.push({ id, title, description: String(req.body.description || ''), status: 'live', inkMode: 'original', prints: { original: '/uploads/' + req.file.filename }, photos: {}, colors, printNote: 'Added from the admin panel.' });
+    store.save(); res.json(F.all(s).find(l => l.id === id));
+  } catch (e) { res.status(400).json({ error: e.message }); }
+});
+A.post('/featured/:id/art', upload.single('file'), (req, res) => {
+  const s = S(), l = F.all(s).find(x => x.id === req.params.id); if (!l) return res.status(404).json({ error: 'Not found' });
+  if (!req.file) return res.status(400).json({ error: 'No image received.' });
+  s.featuredFiles[l.id] = { prints: { original: '/uploads/' + req.file.filename }, note: 'Art uploaded through the admin panel (runtime file; commit it to the repo seed to make it permanent).' };
+  store.save(); res.json(F.all(s).find(x => x.id === l.id));
+});
+A.put('/featured/:id', (req, res) => {
+  const s = S(), b = req.body || {}, x = s.featuredExtra.find(l => l.id === req.params.id);
+  if (b.hidden !== undefined) { s.featuredHidden = s.featuredHidden.filter(i => i !== req.params.id); if (b.hidden) s.featuredHidden.push(req.params.id); }
+  if (x) { if (b.title !== undefined) x.title = String(b.title); if (b.description !== undefined) x.description = String(b.description); if (b.colors) x.colors = parseColors(b.colors); }
+  store.save(); res.json(F.all(s).find(l => l.id === req.params.id) || {});
+});
+A.delete('/featured/:id', (req, res) => { const s = S(), i = s.featuredExtra.findIndex(l => l.id === req.params.id); if (i < 0) return res.status(400).json({ error: 'Only admin-added listings can be deleted; hide seed listings instead.' }); s.featuredExtra.splice(i, 1); store.save(); res.json({ ok: true }); });
+A.put('/featured-promo', (req, res) => { const s = S(); s.featuredPromo = { enabled: !!req.body?.enabled, text: String(req.body?.text || '') }; store.save(); res.json(s.featuredPromo); });
+A.get('/featured/:id/export', (req, res) => { const s = S(), x = s.featuredExtra.find(l => l.id === req.params.id) || F.getSeed().listings.find(l => l.id === req.params.id); if (!x) return res.status(404).json({ error: 'Not found' }); res.json({ listing: x, runtimeFiles: s.featuredFiles[x.id] || null, howTo: 'Copy the image into public/featured/, point prints at it, add this object to data/featured.seed.json listings, commit and deploy.' }); });
 A.get('/orders', (req, res) => res.json(S().orders.slice().reverse()));
 A.get('/subscribers', (req, res) => res.json(S().subscribers));
 

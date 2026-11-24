@@ -5,7 +5,11 @@
   let designs = await (await fetch('/api/designs')).json();
   const products = cfg.products.filter(p => p.inStock);
   const state = { design: designs[0], product: products[0], color: products[0]?.colors[0]?.name, size: products[0]?.sizes.includes('L') ? 'L' : products[0]?.sizes[0], qty: 1, filter: 'All', q: '' };
-  let bag = JSON.parse(localStorage.getItem('ms_bag') || '[]').filter(i => products.find(p => p.id === i.productId) && designs.find(d => d.id === i.designId));
+  const FD = cfg.featured || { listings: [], garments: {} }, FL = FD.listings;
+  const fItem = i => { const l = FL.find(x => x.id === i.listingId), g = FD.garments[i.garment], c = l?.colors[i.garment]?.find(x => x.name === i.color && x.print); return l && g && c ? { l, g, c } : null; };
+  const unitOf = i => i.kind === 'featured' ? fItem(i).g.price : products.find(p => p.id === i.productId).price;
+  let bag = JSON.parse(localStorage.getItem('ms_bag') || '[]').filter(i => i.kind === 'featured' ? fItem(i) : (products.find(p => p.id === i.productId) && designs.find(d => d.id === i.designId)));
+  if (FD.promo?.enabled && FD.promo.text && FL.length) { $('#promo').hidden = false; $('#promo').innerHTML = `<a href="#featured-art">${esc(FD.promo.text)} <span>Shop the sale →</span></a>`; }
   const toast = m => { const t = $('#toast'); t.textContent = m; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 2600); };
 
   // ---------- section renderers (data-driven; owner edits via /admin) ----------
@@ -14,6 +18,11 @@
       <div class="hero-mist"></div><div class="wrap hero-copy reveal"><p class="eyebrow">${esc(s.eyebrow)}</p><h1>${esc(s.title)}</h1><p class="lede">${esc(s.subtitle)}</p>
       <div class="cta-row"><a class="btn btn-primary" href="#configurator">${esc(s.cta || 'Shop')}</a><a class="btn btn-ghost" href="#gallery">Browse ${designs.length} designs</a></div></div>
       <div class="hero-scroll">Scroll</div></section>`,
+    featuredArt: s => !FL.length ? '' : `<section class="band featured-art" id="${s.id}"><div class="wrap"><div class="sec-head reveal"><p class="eyebrow">${esc(s.eyebrow || 'Launch sale')}</p><h2>${esc(s.title)}</h2><p class="muted">${esc(s.subtitle || '')}</p></div>
+      <div class="fa-grid">${FL.map(l => { const g = Object.keys(FD.garments).find(k => l.colors[k]?.some(c => c.print)), c = l.colors[g].find(c => c.print); const t = FD.garments.tee;
+        return `<button class="fa-card reveal" data-fa="${esc(l.id)}"><span class="sale-badge">50% off</span><div class="fa-img">${l.cover ? `<img src="${esc(l.cover)}" alt="${esc(l.title)}" loading="lazy">` : Shirt.svg({ silhouette: FD.garments[g].silhouette, color: c.hex, design: c.print, id: 'fa-' + l.id })}</div>
+          <div class="fa-meta"><strong>${esc(l.title)}</strong><span class="fa-price"><s>${fmt(t.compareAt, cur)}</s> <b>${fmt(t.price, cur)}</b></span><small class="muted">Tee · Long sleeve ${fmt(FD.garments.longsleeve.price, cur)} · Hoodie ${fmt(FD.garments.hoodie.price, cur)}</small>
+          <span class="fa-dots">${Object.values(l.colors).flat().filter((c, i, a) => c.print && a.findIndex(x => x.hex === c.hex) === i).slice(0, 8).map(c => `<i style="background:${c.hex}"></i>`).join('')}</span></div></button>`; }).join('')}</div></div></section>`,
     featured: s => `<section class="band" id="${s.id}"><div class="wrap"><div class="sec-head reveal"><p class="eyebrow">Gallery picks</p><h2>${esc(s.title)}</h2><p class="muted">${esc(s.subtitle || '')}</p></div>
       <div class="feat-grid">${designs.filter(d => d.featured).slice(0, 8).map(d => `<button class="feat-card reveal" data-pick="${d.id}"><div class="feat-img"><img src="${esc(d.file)}" alt="${esc(d.title)}" loading="lazy"></div><div class="feat-meta"><span>${esc(d.title)}</span><small>${esc(d.category)}</small></div></button>`).join('')}</div></div></section>`,
     configurator: s => `<section class="band configurator" id="${s.id}"><div class="wrap"><div class="sec-head reveal"><p class="eyebrow">Studio</p><h2>${esc(s.title)}</h2><p class="muted">${esc(s.subtitle || '')}</p></div>
@@ -92,6 +101,36 @@
   }
   $('#newsForm')?.addEventListener('submit', async e => { e.preventDefault(); const inp = e.target.querySelector('input'); const r = await fetch('/api/newsletter', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: inp.value }) }); const j = await r.json(); toast(r.ok ? 'You’re on the list. See you at high tide.' : j.error); if (r.ok) inp.value = ''; });
 
+  // ---------- featured artwork modal ----------
+  const fm = { l: null, g: 'tee', color: null, size: 'L', qty: 1 };
+  function drawFM() {
+    const l = fm.l, G = FD.garments, g = G[fm.g], cols = l.colors[fm.g].filter(c => c.print), c = cols.find(x => x.name === fm.color) || cols[0]; fm.color = c.name;
+    $('#fmodalBody').innerHTML = `<button class="icon-btn fm-close" data-fmclose aria-label="Close">×</button><div class="fm-grid"><div class="fm-preview"><span class="sale-badge">50% off</span>
+        ${c.photo ? `<img src="${esc(c.photo)}" alt="${esc(l.title)} on ${esc(c.name)}"><p class="fine center">Product photo</p>` : `${Shirt.svg({ silhouette: g.silhouette, color: c.hex, design: c.print, id: 'fm' })}<p class="fine center">Digital colour preview — not a photo</p>`}</div>
+      <div><p class="eyebrow">Featured artwork</p><h2>${esc(l.title)}</h2><p class="muted">${esc(l.description)}</p>
+        <div class="fm-price"><s>${fmt(g.compareAt, cur)}</s><b>${fmt(g.price, cur)}</b><span class="sale-badge">Half price</span></div>
+        <div class="fm-tabs">${Object.entries(G).filter(([k]) => l.colors[k]?.some(x => x.print)).map(([k, v]) => `<button class="chip ${k === fm.g ? 'on' : ''}" data-fg="${k}">${esc(v.label)} · ${fmt(v.price, cur)}</button>`).join('')}</div>
+        <p class="fine">${esc(g.blank)}</p>
+        <div class="opt-head"><h3>Colour</h3><span class="muted">${esc(c.name)}</span></div><div class="swatches">${cols.map(x => `<button class="swatch ${x.name === c.name ? 'on' : ''}" data-fc="${esc(x.name)}" style="--c:${x.hex}" title="${esc(x.name)}${x.why ? ' — ' + esc(x.why) : ''}"></button>`).join('')}</div>
+        <div class="opt-head" style="margin-top:18px"><h3>Size</h3></div><div class="sizes">${g.sizes.map(z => `<button class="size ${z === fm.size ? 'on' : ''}" data-fs="${z}">${z}</button>`).join('')}</div>
+        <div class="buy-row"><div class="qty"><button data-fq="-1">−</button><span>${fm.qty}</span><button data-fq="1">+</button></div><button class="btn btn-primary grow" data-fadd>Add to bag · ${fmt(g.price * fm.qty, cur)}</button></div>
+        <p class="fine">Printed to order. Ships across North America.</p></div></div>`;
+  }
+  const openFM = id => { fm.l = FL.find(x => x.id === id); if (!fm.l) return; fm.g = Object.keys(FD.garments).find(k => fm.l.colors[k]?.some(c => c.print)); fm.color = null; fm.qty = 1; if (!FD.garments[fm.g].sizes.includes(fm.size)) fm.size = FD.garments[fm.g].sizes[0]; drawFM(); $('#fmodal').classList.add('open'); $('#scrim').classList.add('open'); };
+  const closeFM = () => { $('#fmodal').classList.remove('open'); if (!$('#bag').classList.contains('open')) $('#scrim').classList.remove('open'); };
+  document.addEventListener('click', e => {
+    const fa = e.target.closest('[data-fa]'); if (fa) return openFM(fa.dataset.fa);
+    if (!e.target.closest('#fmodal')) return; const t = e.target.closest('[data-fg],[data-fc],[data-fs],[data-fq],[data-fadd],[data-fmclose]'); if (!t) { if (e.target.id === 'fmodal') closeFM(); return; }
+    if (t.dataset.fmclose !== undefined) return closeFM();
+    if (t.dataset.fg) { fm.g = t.dataset.fg; fm.color = null; }
+    if (t.dataset.fc) fm.color = t.dataset.fc; if (t.dataset.fs) fm.size = t.dataset.fs; if (t.dataset.fq) fm.qty = Math.max(1, Math.min(20, fm.qty + Number(t.dataset.fq)));
+    if (t.dataset.fadd !== undefined) { const key = ['featured', fm.l.id, fm.g, fm.color, fm.size].join('|'), ex = bag.find(i => i.key === key);
+      if (ex) ex.qty = Math.min(20, ex.qty + fm.qty); else bag.push({ key, kind: 'featured', listingId: fm.l.id, garment: fm.g, color: fm.color, size: fm.size, qty: fm.qty });
+      saveBag(); closeFM(); toast(`Added ${fm.l.title} · ${FD.garments[fm.g].label} (${fm.size})`); openBag(); return; }
+    drawFM();
+  });
+  const fq = new URLSearchParams(location.search).get('featured'); if (fq) setTimeout(() => openFM(fq), 300);
+
   // ---------- bag + shipping ----------
   const countrySel = $('#shipCountry'), regionSel = $('#shipRegion');
   countrySel.innerHTML = cfg.countries.map(c => `<option value="${c.code}">${esc(c.name)}</option>`).join('');
@@ -104,7 +143,10 @@
   function saveBag() { localStorage.setItem('ms_bag', JSON.stringify(bag)); renderBag(); }
   function renderBag() {
     $('#bagCount').textContent = bag.reduce((a, i) => a + i.qty, 0);
-    $('#bagItems').innerHTML = bag.length ? bag.map((i, n) => { const p = products.find(x => x.id === i.productId), d = designs.find(x => x.id === i.designId), hex = p.colors.find(c => c.name === i.color)?.hex;
+    $('#bagItems').innerHTML = bag.length ? bag.map((i, n) => { if (i.kind === 'featured') { const { l, g, c } = fItem(i);
+      return `<div class="bag-item"><div class="bag-thumb">${Shirt.svg({ silhouette: g.silhouette, color: c.hex, design: c.print, id: 'b' + n })}</div><div class="bag-info"><strong>${esc(l.title)} <span class="sale-badge sm">50% off</span></strong><span class="muted">${esc(g.label)} · ${esc(i.color)} · ${i.size}</span>
+        <div class="qty sm"><button data-bq="${n}:-1">−</button><span>${i.qty}</span><button data-bq="${n}:1">+</button></div></div><div class="bag-price"><s class="muted small">${fmt(g.compareAt * i.qty, cur)}</s>${fmt(g.price * i.qty, cur)}<button class="link" data-rm="${n}">Remove</button></div></div>`; }
+      const p = products.find(x => x.id === i.productId), d = designs.find(x => x.id === i.designId), hex = p.colors.find(c => c.name === i.color)?.hex;
       return `<div class="bag-item"><div class="bag-thumb">${Shirt.svg({ silhouette: p.silhouette, color: hex, design: d.file, id: 'b' + n })}</div><div class="bag-info"><strong>${esc(d.title)}</strong><span class="muted">${esc(p.name)} · ${esc(i.color)} · ${i.size}</span>
         <div class="qty sm"><button data-bq="${n}:-1">−</button><span>${i.qty}</span><button data-bq="${n}:1">+</button></div></div><div class="bag-price">${fmt(p.price * i.qty, cur)}<button class="link" data-rm="${n}">Remove</button></div></div>`; }).join('') : '<p class="muted empty">Your bag is empty. Pick a design and a cut to get started.</p>';
     updateTotals();
@@ -112,7 +154,7 @@
   let quoteSeq = 0;
   async function updateTotals() {
     localStorage.setItem('ms_ship', JSON.stringify({ country: countrySel.value, region: regionSel.value }));
-    const subtotal = bag.reduce((a, i) => a + products.find(p => p.id === i.productId).price * i.qty, 0), count = bag.reduce((a, i) => a + i.qty, 0);
+    const subtotal = bag.reduce((a, i) => a + unitOf(i) * i.qty, 0), count = bag.reduce((a, i) => a + i.qty, 0);
     const seq = ++quoteSeq; let q = null;
     if (count) { const r = await fetch('/api/shipping/quote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ country: countrySel.value, region: regionSel.value, itemCount: count, subtotal }) }); q = await r.json(); if (seq !== quoteSeq) return; }
     $('#totals').innerHTML = `<div><span>Subtotal</span><span>${fmt(subtotal, cur)}</span></div>
@@ -125,7 +167,7 @@
     if (b.dataset.rm !== undefined) bag.splice(+b.dataset.rm, 1); else { const [n, d] = b.dataset.bq.split(':').map(Number); bag[n].qty = Math.max(1, Math.min(20, bag[n].qty + d)); } saveBag(); });
   const openBag = () => { $('#bag').classList.add('open'); $('#scrim').classList.add('open'); $('#bag').setAttribute('aria-hidden', 'false'); };
   const closeBag = () => { $('#bag').classList.remove('open'); $('#scrim').classList.remove('open'); $('#bag').setAttribute('aria-hidden', 'true'); };
-  $('#bagBtn').onclick = openBag; $('#bagClose').onclick = closeBag; $('#scrim').onclick = closeBag;
+  $('#bagBtn').onclick = openBag; $('#bagClose').onclick = closeBag; $('#scrim').onclick = () => { closeBag(); closeFM(); };
   $('#payNote').innerHTML = cfg.stripe.mode === 'test' ? '🔒 Secure checkout by Stripe (test mode — use card 4242 4242 4242 4242)' : 'Demo checkout — Stripe test key not configured yet, no card is charged.';
   $('#checkoutBtn').onclick = async () => {
     const btn = $('#checkoutBtn'); btn.disabled = true; btn.textContent = 'Opening checkout…';
